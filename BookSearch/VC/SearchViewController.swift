@@ -33,13 +33,12 @@ class SearchViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
     
     private func setupCollectionView() {
-        let layout = createCompositionalLayout()
+        let layout = createFlowLayout()
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
         collectionView.backgroundColor = .white
         
         collectionView.register(BookListCell.self, forCellWithReuseIdentifier: "BookListCell")
-        collectionView.register(CollectionHeaderView.self, forSupplementaryViewOfKind: "header", withReuseIdentifier: CollectionHeaderView.reuseIdentifier) // 여기서 등록
-        
+        collectionView.register(CollectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: CollectionHeaderView.reuseIdentifier)
         view.addSubview(collectionView)
         
         collectionView.dataSource = self
@@ -74,46 +73,23 @@ class SearchViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     
     @objc private func searchButtonTapped() {
+        // 버튼 클릭시 책제목에 따른 책 리스트 컬렉션 뷰로 제공
         print("검색버튼이 클릭되었습니다")
     }
     
     
-    private func createCompositionalLayout() -> UICollectionViewLayout {
-        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(60))
-        let header = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: "header", alignment: .topTrailing)
-        
-        // 아이템 3가지 정의
-        let bookTitleItemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(100))
-        let bookTitleItem = NSCollectionLayoutItem(layoutSize: bookTitleItemSize)
-        
-        let authorsItemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(70))
-        let authorsItem = NSCollectionLayoutItem(layoutSize: authorsItemSize)
-        
-        let bookPriceItemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(100))
-        let bookPriceItem = NSCollectionLayoutItem(layoutSize: bookPriceItemSize)
-        
-        
-        // 그룹 크기 및 섹션 설정
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(120))
-        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [bookTitleItem, authorsItem, bookPriceItem])
-        
-        group.interItemSpacing = NSCollectionLayoutSpacing.fixed(10)
-        
-        let section = NSCollectionLayoutSection(group: group)
-        
-        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 24, bottom: 0, trailing: 24)
-        
-        //        section.interGroupSpacing = 20
-        
-        section.boundarySupplementaryItems = [header]
-        
-        let layout = UICollectionViewCompositionalLayout(section: section)
+    private func createFlowLayout() -> UICollectionViewLayout {
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: view.frame.width - 48, height: 120)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        layout.headerReferenceSize = CGSize(width: view.frame.width, height: 60)
+        layout.minimumLineSpacing = 10
         return layout
     }
     
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return books.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -127,13 +103,13 @@ class SearchViewController: UIViewController, UICollectionViewDataSource, UIColl
         return cell
     }
     
-    func    collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == "header" {
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionHeader {
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionHeaderView.reuseIdentifier, for: indexPath) as! CollectionHeaderView
             headerView.configure(with: "검색 결과")
             return headerView
         }
-        fatalError("Unexpected element kind")
+        fatalError("Unexpected element kind: \(kind)")
     }
     
 }

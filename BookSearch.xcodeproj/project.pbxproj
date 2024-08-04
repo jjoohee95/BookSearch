@@ -7,10 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D60189852C5F00C600623AD2 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60189842C5F00C600623AD2 /* NetworkManager.swift */; };
+		D60189872C5F03C100623AD2 /* BookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60189862C5F03C100623AD2 /* BookModel.swift */; };
 		D6DC30912C5B511B00068383 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DC30902C5B511B00068383 /* AppDelegate.swift */; };
 		D6DC30932C5B511B00068383 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DC30922C5B511B00068383 /* SceneDelegate.swift */; };
 		D6DC30952C5B511B00068383 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DC30942C5B511B00068383 /* SearchViewController.swift */; };
-		D6DC30982C5B511B00068383 /* BookSearch.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D6DC30962C5B511B00068383 /* BookSearch.xcdatamodeld */; };
 		D6DC309A2C5B511C00068383 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6DC30992C5B511C00068383 /* Assets.xcassets */; };
 		D6DC309D2C5B511C00068383 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = D6DC309C2C5B511C00068383 /* Base */; };
 		D6DC30A82C5B511C00068383 /* BookSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DC30A72C5B511C00068383 /* BookSearchTests.swift */; };
@@ -19,7 +20,6 @@
 		D6DC30C62C5B54AB00068383 /* CartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DC30C52C5B54AB00068383 /* CartViewController.swift */; };
 		D6DC30C82C5B54CA00068383 /* BookInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DC30C72C5B54CA00068383 /* BookInfoViewController.swift */; };
 		D6DC30CD2C5B7B8700068383 /* BookListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DC30CC2C5B7B8700068383 /* BookListCell.swift */; };
-		D6DC30D02C5B8F7900068383 /* BookModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DC30CF2C5B8F7900068383 /* BookModel.swift */; };
 		D6DC30D72C5BAC4700068383 /* CollectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6DC30D62C5BAC4700068383 /* CollectionHeaderView.swift */; };
 /* End PBXBuildFile section */
 
@@ -41,11 +41,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D60189842C5F00C600623AD2 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		D60189862C5F03C100623AD2 /* BookModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookModel.swift; sourceTree = "<group>"; };
 		D6DC308D2C5B511B00068383 /* BookSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6DC30902C5B511B00068383 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D6DC30922C5B511B00068383 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		D6DC30942C5B511B00068383 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		D6DC30972C5B511B00068383 /* BookSearch.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BookSearch.xcdatamodel; sourceTree = "<group>"; };
 		D6DC30992C5B511C00068383 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D6DC309C2C5B511C00068383 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D6DC309E2C5B511C00068383 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -110,6 +111,8 @@
 		D6DC308F2C5B511B00068383 /* BookSearch */ = {
 			isa = PBXGroup;
 			children = (
+				D60189842C5F00C600623AD2 /* NetworkManager.swift */,
+				D60189862C5F03C100623AD2 /* BookModel.swift */,
 				D6DC30C42C5B548E00068383 /* VC */,
 				D6DC30CB2C5B7B7100068383 /* View */,
 				D6DC30902C5B511B00068383 /* AppDelegate.swift */,
@@ -117,7 +120,6 @@
 				D6DC30992C5B511C00068383 /* Assets.xcassets */,
 				D6DC309B2C5B511C00068383 /* LaunchScreen.storyboard */,
 				D6DC309E2C5B511C00068383 /* Info.plist */,
-				D6DC30962C5B511B00068383 /* BookSearch.xcdatamodeld */,
 			);
 			path = BookSearch;
 			sourceTree = "<group>";
@@ -298,9 +300,9 @@
 			files = (
 				D6DC30D72C5BAC4700068383 /* CollectionHeaderView.swift in Sources */,
 				D6DC30C82C5B54CA00068383 /* BookInfoViewController.swift in Sources */,
-				D6DC30982C5B511B00068383 /* BookSearch.xcdatamodeld in Sources */,
+				D60189852C5F00C600623AD2 /* NetworkManager.swift in Sources */,
+				D60189872C5F03C100623AD2 /* BookModel.swift in Sources */,
 				D6DC30952C5B511B00068383 /* SearchViewController.swift in Sources */,
-				D6DC30D02C5B8F7900068383 /* BookModel.swift in Sources */,
 				D6DC30C62C5B54AB00068383 /* CartViewController.swift in Sources */,
 				D6DC30CD2C5B7B8700068383 /* BookListCell.swift in Sources */,
 				D6DC30912C5B511B00068383 /* AppDelegate.swift in Sources */,
@@ -404,7 +406,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -461,7 +463,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -641,19 +643,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		D6DC30962C5B511B00068383 /* BookSearch.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				D6DC30972C5B511B00068383 /* BookSearch.xcdatamodel */,
-			);
-			currentVersion = D6DC30972C5B511B00068383 /* BookSearch.xcdatamodel */;
-			path = BookSearch.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = D6DC30852C5B511B00068383 /* Project object */;
 }
