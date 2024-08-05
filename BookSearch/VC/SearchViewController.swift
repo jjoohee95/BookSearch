@@ -7,29 +7,22 @@
 
 import UIKit
 
-struct Book {
-    let title: String
-    let author: String
-    let price: String
-}
-
-class SearchViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate{
+class SearchViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
     
     
     private var collectionView: UICollectionView!
+    private var searchBar: UISearchBar! // 클래스 변수로 선언
     
-    private var books: [Book] = [
-        Book(title: "책 제목 1", author: "저자 1", price: "14,000₩"),
-        Book(title: "책 제목 2", author: "저자 2", price: "15,000₩"),
-        Book(title: "책 제목 3", author: "저자 3", price: "20,000₩"),
-        // 더미 데이터 추가
-    ]
+    
+    
+    var books: [BookModel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSearchBar()
         setupCollectionView()
         view.backgroundColor = .white
+        
     }
     
     private func setupCollectionView() {
@@ -56,9 +49,10 @@ class SearchViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     
     private func setupSearchBar() {
-        let searchBar: UISearchBar = {
+        searchBar = {
             let search = UISearchBar()
             search.placeholder = "검색어를 입력하세요"
+            search.delegate = self
             return search
         }()
         
@@ -73,14 +67,33 @@ class SearchViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     
     @objc private func searchButtonTapped() {
-        // 버튼 클릭시 책제목에 따른 책 리스트 컬렉션 뷰로 제공
-        print("검색버튼이 클릭되었습니다")
+        guard let query = searchBar.text, !query.isEmpty else { return
+            
+            print("검색어를 입력해 주세요")
+        }
+        searchBooks(query: query)
+    }
+    
+    func searchBooks(query : String) {
+        Task {
+            do {
+                let fetchedBooks = try await NetworkManager.shared.fetchData(query: query)
+                await MainActor.run {
+                    self.books = fetchedBooks
+                    self.collectionView.reloadData()
+                }
+            } catch {
+                await MainActor.run {
+                    print("오류 발생 : \(error.localizedDescription)")
+                }
+            }
+        }
     }
     
     
     private func createFlowLayout() -> UICollectionViewLayout {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: view.frame.width - 48, height: 120)
+        layout.itemSize = CGSize(width: view.frame.width - 48, height: 80)
         layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
         layout.headerReferenceSize = CGSize(width: view.frame.width, height: 60)
         layout.minimumLineSpacing = 10
@@ -96,10 +109,7 @@ class SearchViewController: UIViewController, UICollectionViewDataSource, UIColl
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BookListCell", for: indexPath) as! BookListCell
         
         let book = books[indexPath.item]
-        cell.bookTitle.text = book.title
-        cell.authors.text = book.author
-        cell.bookPrice.text = book.price
-        
+        cell.configure(with: book)
         return cell
     }
     
@@ -113,3 +123,4 @@ class SearchViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
     
 }
+

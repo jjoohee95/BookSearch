@@ -15,24 +15,24 @@ class BookListCell: UICollectionViewCell {
     
     let bookTitle: UILabel = {
         let label = UILabel()
-        label.font = .boldSystemFont(ofSize: 20)
-        label.numberOfLines = 0
+        label.font = .boldSystemFont(ofSize: 16)
+        label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     let authors: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 14)
+        label.font = .systemFont(ofSize: 12)
         label.textColor = .gray
-        label.numberOfLines = 1
+        label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     let bookPrice: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 14)
+        label.font = .boldSystemFont(ofSize: 12)
         label.textColor = .black
         label.numberOfLines = 1
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -45,7 +45,7 @@ class BookListCell: UICollectionViewCell {
         [bookTitle,authors,bookPrice].forEach { contentView.addSubview($0) }
         
         contentView.layer.borderColor = UIColor.lightGray.cgColor
-                contentView.layer.borderWidth = 1.0 // 보더라인 두께
+                contentView.layer.borderWidth = 1.0
         
         NSLayoutConstraint.activate([
             // bookTitle 제약 조건
@@ -56,17 +56,23 @@ class BookListCell: UICollectionViewCell {
             // authors 제약 조건
             authors.centerYAnchor.constraint(equalTo: bookTitle.centerYAnchor),
             authors.trailingAnchor.constraint(equalTo: bookPrice.leadingAnchor, constant: -8),
-            authors.widthAnchor.constraint(equalToConstant: 80), // 필요에 따라 조정
+            authors.widthAnchor.constraint(equalToConstant: 80),
             
             // bookPrice 제약 조건
             bookPrice.centerYAnchor.constraint(equalTo: bookTitle.centerYAnchor),
             bookPrice.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            bookPrice.widthAnchor.constraint(equalToConstant: 60) // 필요에 따라 조정
+            bookPrice.widthAnchor.constraint(equalToConstant: 60)
         ])
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure(with book: BookModel) {
+        bookTitle.text = book.title
+        authors.text = book.authors.joined(separator: ", ")
+        bookPrice.text = "\(book.salePrice)원"
     }
     
 }
