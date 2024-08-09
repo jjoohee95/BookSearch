@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let tabBarVC = UITabBarController()
         
         let vc1 = UINavigationController(rootViewController: SearchViewController())
-        let vc2 = CartViewController()
+        let vc2 = UINavigationController(rootViewController: CartViewController())
         
         vc1.title = "검색 탭"
         vc2.title = "담은 책 리스트"
@@ -30,8 +30,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         items[0].image = UIImage(systemName: "magnifyingglass")
         items[1].image = UIImage(systemName: "cart")
     
-        
-        // Set the root view controller
         window?.rootViewController = tabBarVC
         window?.makeKeyAndVisible()
     }
@@ -69,4 +67,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     
 }
+
+
 
