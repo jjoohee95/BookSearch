@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class NetworkManager {
     static let shared = NetworkManager()
@@ -13,12 +14,15 @@ class NetworkManager {
     private let apiKey = "f818bff85f9c42507dcd642544d3b7d9"
     private let baseUrl = "https://dapi.kakao.com/v3/search/book"
     
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
     private init() {}
     
     func fetchData(query: String) async throws -> [BookModel] {
-
-        let urlString = "\(baseUrl)?query=\(query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")"
-        guard let url = URL(string: urlString) else {
+        var components = URLComponents(string: baseUrl)
+        components?.queryItems = [URLQueryItem(name: "query", value: query)]
+        
+        guard let url = components?.url else {
             throw NetworkError.invalidURL
         }
         
@@ -34,14 +38,31 @@ class NetworkManager {
         let bookResponse = try JSONDecoder().decode(BookResponse.self, from: data)
         return bookResponse.documents
     }
+    
+    func loadImage(from urlString: String) async throws -> UIImage? {
+        guard let url = URL(string: urlString) else {
+            return nil
+        }
+        
+        let (data, _) = try await URLSession.shared.data(from: url)
+        
+        guard let image = UIImage(data: data) else {
+            print("Failed to create image from data.")
+            return nil
+        }
+        
+        return image
+    }
+    
+}
+
+struct BookResponse: Codable {
+    let documents: [BookModel]
 }
 
 enum NetworkError: Error {
     case invalidURL
     case invalidResponse
     case noData
-}
-
-struct BookResponse: Codable {
-    let documents: [BookModel]
+    case decodingError
 }

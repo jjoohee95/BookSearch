@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct BookModel: Codable { // ❤️
+struct BookModel: Codable {
+    let isbn: String 
     let title: String
     let contents: String
     let authors: [String]
@@ -15,6 +16,7 @@ struct BookModel: Codable { // ❤️
     let thumbnail: String
     
     enum CodingKeys: String, CodingKey {
+        case isbn = "isbn"
         case title
         case contents
         case authors
